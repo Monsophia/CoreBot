@@ -19,7 +19,7 @@ module.exports = {
     async execute(interaction) {
         const choice = interaction.options.getString('choice')
 
-        if(choice === 'set') {
+        if (choice === 'set') {
             const content = interaction.options.getString('message')
             interaction.channel.send(`**STICKY MESSAGE**\n${content}`).then(async msg => {
                 await db.set(`stick_${interaction.guild.id}_${interaction.channel.id}`, content)
@@ -28,10 +28,10 @@ module.exports = {
             })
             interaction.reply({ content: 'Successfully set sticky message!', ephemeral: true })
         }
-        else if(choice === 'remove') {
+        else if (choice === 'remove') {
             await db.delete(`stick_${interaction.guild.id}_${interaction.channel.id}`)
             interaction.reply({ content: 'Successfully removed the sticky message from this channel!', ephemeral: true })
         }
-        
+
     },
 };

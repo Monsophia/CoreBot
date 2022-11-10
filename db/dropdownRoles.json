@@ -5,7 +5,9 @@
             "roleName": {
                 "description": "description",
                 "emoji": "",
-                "roles": [""]
+                "roles": [
+                    ""
+                ]
             }
         },
         "donttouch": ""

@@ -6,18 +6,18 @@ module.exports = {
         const support = interaction.channel.topic.split('|')[1].split(',')
         let done;
         support.forEach(curr => {
-            if(interaction.guild.members.cache.get(interaction.user.id).roles.cache.some(r => r.id === curr)) {
+            if (interaction.guild.members.cache.get(interaction.user.id).roles.cache.some(r => r.id === curr)) {
                 done = true;
             }
         })
-        if(!done) {
+        if (!done) {
             interaction.reply({ content: 'You are not allowed to claim this ticket!', ephemeral: true })
         }
         else {
             //interaction.message.channel.setName(`${interaction.user.username}-claimed`)
             support.forEach(curr => {
                 interaction.message.channel.permissionOverwrites.edit(curr, {
-                        ViewChannel: false
+                    ViewChannel: false
                 })
             })
             interaction.message.channel.permissionOverwrites.edit(interaction.user, {

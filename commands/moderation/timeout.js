@@ -16,17 +16,17 @@ module.exports = {
         const time = interaction.options.getString('time') || '10m'
         const user = interaction.options.getMember('user')
         const permCheck = checkPerms(interaction.member, user)
-        if(permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
+        if (permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
 
-        if(!ms(time)) return interaction.reply({ content: 'Invalid time specified!', ephemeral: true });
+        if (!ms(time)) return interaction.reply({ content: 'Invalid time specified!', ephemeral: true });
 
         let failed;
-        user.timeout(ms(time)).catch(err => { 
+        user.timeout(ms(time)).catch(err => {
             failed = true
             interaction.reply({ content: 'Unable to timeout that user', ephemeral: true })
         })
 
-        if(failed) return;
+        if (failed) return;
 
         const embed = new EmbedBuilder()
             .setColor(embedcolour)
@@ -36,13 +36,13 @@ module.exports = {
             .addFields(
                 { name: 'User\'s Discord', value: `${user.user.tag}`, inline: true },
                 { name: 'User\'s ID', value: `${user.user.id}`, inline: true },
-                { name: 'Moderator', value: interaction.user.tag, inline: true}
+                { name: 'Moderator', value: interaction.user.tag, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() })
 
-        interaction.reply({embeds: [embed], ephemeral: true});
+        interaction.reply({ embeds: [embed], ephemeral: true });
         const loggingChannel = await interaction.client.channels.fetch(sendLogs('timeout')).catch(err => { })
-        if(loggingChannel) loggingChannel.send({embeds: [embed]})
+        if (loggingChannel) loggingChannel.send({ embeds: [embed] })
     },
 };

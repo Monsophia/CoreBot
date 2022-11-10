@@ -6,11 +6,11 @@ module.exports = {
         const support = interaction.channel.topic.split('|')[1].split(',')
         let done;
         support.forEach(curr => {
-            if(interaction.guild.members.cache.get(interaction.user.id).roles.cache.some(r => r.id === curr)) {
+            if (interaction.guild.members.cache.get(interaction.user.id).roles.cache.some(r => r.id === curr)) {
                 done = true;
             }
         })
-        if(!done) return interaction.message.channel.send('You are not allowed to unclaim this ticket!')
+        if (!done) return interaction.message.channel.send('You are not allowed to unclaim this ticket!')
 
         support.forEach(curr => {
             interaction.message.channel.permissionOverwrites.edit(curr, {
@@ -18,7 +18,7 @@ module.exports = {
             })
         })
         interaction.message.channel.permissionOverwrites.edit(interaction.user, {
-                ViewChannel: true
+            ViewChannel: true
         })
 
         const button1 = new ButtonBuilder()

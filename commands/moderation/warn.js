@@ -16,10 +16,10 @@ module.exports = {
         const reason = interaction.options.getString('reason') || 'No reason specified'
         const target = interaction.options.getMember('user')
         const permCheck = checkPerms(interaction.member, target)
-        if(permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
+        if (permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
 
         const today = new Date();
-        const dateTime = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        const dateTime = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
         await db.push(`warnings_${target.id}`, `**${reason}** - ${interaction.user.tag} - ${dateTime}`);
 
@@ -29,8 +29,8 @@ module.exports = {
             .setColor(embedcolour)
             .setTitle('User Warned')
             .setDescription(`Successfully warned <@${target.id}> for \`${reason}\`\n\nUser now has: \`${number}\` warnings`)
-            .setFooter({ text: `${footer} - Made By Cryptonized`})
-        interaction.reply({embeds: [embed]});
+            .setFooter({ text: `${footer} - Made By Cryptonized` })
+        interaction.reply({ embeds: [embed] });
 
         const logEmbed = new EmbedBuilder()
             .setColor(embedcolour)
@@ -40,13 +40,13 @@ module.exports = {
             .addFields(
                 { name: 'Total Warns', value: `${number}`, inline: true },
                 { name: 'User\'s ID', value: `${target.user.id}`, inline: true },
-                { name: 'Warned By', value: interaction.user.tag, inline: true}
+                { name: 'Warned By', value: interaction.user.tag, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() })
 
         const loggingChannel = await interaction.client.channels.fetch(sendLogs('warn')).catch(err => { })
-        if(loggingChannel) loggingChannel.send({embeds: [logEmbed]})
+        if (loggingChannel) loggingChannel.send({ embeds: [logEmbed] })
 
     },
 };

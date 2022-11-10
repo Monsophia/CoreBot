@@ -90,7 +90,13 @@
             "channelId": "",
             "clientId": "",
             "clientSecret": "",
-            "streamers": [{ "streamer": "StreamerName", "message": "{streamer} is now live on Twitch! Go check them out at {url}", "colour": "Random" }]
+            "streamers": [
+                {
+                    "streamer": "StreamerName",
+                    "message": "{streamer} is now live on Twitch! Go check them out at {url}",
+                    "colour": "Random"
+                }
+            ]
         }
     },
     "commands": {

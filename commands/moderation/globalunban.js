@@ -21,9 +21,9 @@ module.exports = {
             .setTitle('Globally Unbanned Member')
             .setDescription(`Successfully unbanned user with ID \`${target}\` from all servers`)
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()});
-        interaction.reply({embeds: [embed]})
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() });
+        interaction.reply({ embeds: [embed] })
         const loggingChannel = await interaction.client.channels.fetch(sendLogs('globalunban')).catch(err => { })
-        if(loggingChannel) loggingChannel.send({embeds: [embed]})
+        if (loggingChannel) loggingChannel.send({ embeds: [embed] })
     },
 };

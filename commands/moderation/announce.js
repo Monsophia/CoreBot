@@ -20,9 +20,9 @@ module.exports = {
             .setDescription(`\n\n${interaction.options.getString('message')}`)
             .addFields([{ name: 'Author', value: `<@${interaction.user.id}>` }])
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()}) // removed my credits since im just too nice (sure)
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() }) // removed my credits since im just too nice (sure)
 
-        interaction.channel.send({embeds: [announceEmbed]});
+        interaction.channel.send({ embeds: [announceEmbed] });
         interaction.reply({ content: 'Successfully sent announcement', ephemeral: true })
 
     },

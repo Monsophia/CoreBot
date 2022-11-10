@@ -1,5 +1,5 @@
 const ms = require('ms');
-const {  footer } = require('../../config.json');
+const { footer } = require('../../config.json');
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js')
 const { sendLogs } = require('../../utils')
 
@@ -13,7 +13,7 @@ module.exports = {
     async execute(interaction) {
         const target = interaction.channel;
         const time = interaction.options.getString('time') || '10m';
-        if(!ms(time)) return interaction.reply({ content: 'Invalid time specified!', ephemeral: true });
+        if (!ms(time)) return interaction.reply({ content: 'Invalid time specified!', ephemeral: true });
 
         await target.permissionOverwrites.edit(interaction.channel.guild.roles.everyone, { SendMessages: false });
 
@@ -23,7 +23,7 @@ module.exports = {
             .setThumbnail(`${interaction.guild.iconURL() || ''}`)
             .setDescription(`This channel was locked for ${time}`)
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() })
 
         const uannounceEmbed = new EmbedBuilder()
             .setColor('#b1fc03')
@@ -31,14 +31,14 @@ module.exports = {
             .setThumbnail(`${interaction.guild.iconURL() || ''}`)
             .setDescription(`This channel was unlocked after ${time}`)
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() })
 
-        interaction.reply({embeds: [announceEmbed]})
+        interaction.reply({ embeds: [announceEmbed] })
 
         setTimeout(async () => {
             await target.permissionOverwrites.edit(interaction.channel.guild.roles.everyone, { SendMessages: null });
-            interaction.channel.send({embeds: [uannounceEmbed]});
-        }, ms(time) );
+            interaction.channel.send({ embeds: [uannounceEmbed] });
+        }, ms(time));
 
         const logEmbed = new EmbedBuilder()
             .setColor('#f57c73')
@@ -52,9 +52,9 @@ module.exports = {
                 { name: 'Time', value: `${time}`, inline: true },
             )
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()});
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() });
 
-            const loggingChannel = await interaction.client.channels.fetch(sendLogs('lockdown')).catch(err => { })
-            if(loggingChannel) loggingChannel.send({embeds: [logEmbed]})
+        const loggingChannel = await interaction.client.channels.fetch(sendLogs('lockdown')).catch(err => { })
+        if (loggingChannel) loggingChannel.send({ embeds: [logEmbed] })
     },
 };

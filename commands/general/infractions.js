@@ -15,16 +15,16 @@ module.exports = {
         let number = warnings.length;
         let number2 = kicks.length;
 
-        if(warnings[0] === 'None') number = 0;
-        if(kicks[0] === 'None') number2 = 0;
+        if (warnings[0] === 'None') number = 0;
+        if (kicks[0] === 'None') number2 = 0;
 
         const embed = new EmbedBuilder()
             .setColor(defaultEmbedColour)
             .addFields([
                 { name: 'Warnings', value: `- ${warnings.join('\n- ') || 'None'}` },
                 { name: 'Kicks', value: `- ${kicks.join('\n- ') || 'None'}` }
-            ]) 
-            .setFooter({text: `${number} warnings | ${number2} kicks - ${footer}`, iconURL: interaction.guild.iconURL()})
+            ])
+            .setFooter({ text: `${number} warnings | ${number2} kicks - ${footer}`, iconURL: interaction.guild.iconURL() })
         interaction.reply({ embeds: [embed], ephemeral: true })
     },
 };

@@ -17,7 +17,7 @@ module.exports = {
                     { name: 'Tails ', value: 'tails' }
                 )),
     async execute(interaction) {
-        if(!enabled) return;
+        if (!enabled) return;
         const balance = await db.get(`wallet.${interaction.user.id}`);
         const amount = interaction.options.getInteger('amount')
         const winnings = amount * 2;
@@ -25,19 +25,19 @@ module.exports = {
         const option = interaction.options.getString('choice')
         const choice = Math.floor(Math.random() * 2);
 
-        if(choice === 0) {
+        if (choice === 0) {
             guess = 'heads';
         }
         else if (choice === 1) {
             guess = 'tails';
         }
 
-        if(amount > balance) {
+        if (amount > balance) {
             return interaction.reply({ content: 'You do not have enough money to coinflip this amount!', ephemeral: true })
         }
 
-        if(option === guess) {
-            interaction.reply({ content:`Coin landed on: \`${guess}\`\n\nYou won the coinflip, winning you: \`${winnings - amount}\`, you now have \`${balance - amount + winnings}\``});
+        if (option === guess) {
+            interaction.reply({ content: `Coin landed on: \`${guess}\`\n\nYou won the coinflip, winning you: \`${winnings - amount}\`, you now have \`${balance - amount + winnings}\`` });
             await db.sub(`wallet.${interaction.user.id}`, amount);
             await db.add(`wallet.${interaction.user.id}`, winnings);
         }

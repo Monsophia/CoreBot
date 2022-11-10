@@ -15,13 +15,13 @@ module.exports = {
         const reason = interaction.options.getString('reason') || 'No reason specified'
         const target = interaction.options.getMember('user')
         const permCheck = checkPerms(interaction.member, target)
-        if(permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
-        
+        if (permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
+
         interaction.client.guilds.cache.forEach(server => {
-            server.bans.create(target.user, { reason: `${reason} - ${interaction.user.tag}`})
+            server.bans.create(target.user, { reason: `${reason} - ${interaction.user.tag}` })
         })
-        
-        const loggingChannel = await interaction.client.channels.fetch(sendLogs('globalban')).catch(err => {})
+
+        const loggingChannel = await interaction.client.channels.fetch(sendLogs('globalban')).catch(err => { })
 
         const embed = new EmbedBuilder()
             .setColor(embedcolour)
@@ -31,13 +31,13 @@ module.exports = {
             .addFields(
                 { name: 'User\'s Discord', value: `${target.user.tag}`, inline: true },
                 { name: 'User\'s ID', value: `${target.user.id}`, inline: true },
-                { name: 'Banned By', value: interaction.user.tag, inline: true}
+                { name: 'Banned By', value: interaction.user.tag, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()});
-        interaction.reply({embeds: [embed]})
-        if(loggingChannel) loggingChannel.send({embeds: [embed]}).catch(err => {})
-        
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() });
+        interaction.reply({ embeds: [embed] })
+        if (loggingChannel) loggingChannel.send({ embeds: [embed] }).catch(err => { })
+
 
     },
 };

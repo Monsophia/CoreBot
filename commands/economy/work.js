@@ -12,14 +12,14 @@ module.exports = {
         .setName('work')
         .setDescription('Get money from working'),
     async execute(interaction) {
-        if(!enabled) return;
+        if (!enabled) return;
         const author = await db.get(`work.${interaction.user.id}`);
 
         if (author !== null && timeout - (Date.now() - author) > 0) {
             const time = ms(timeout - (Date.now() - author));
 
-            interaction.reply({ content: `You have already worked recently\n\nTry again in ${time}`, ephemeral: true})
-          }
+            interaction.reply({ content: `You have already worked recently\n\nTry again in ${time}`, ephemeral: true })
+        }
         else {
 
             const result = Math.floor((Math.random() * jobs.length));
@@ -30,17 +30,17 @@ module.exports = {
                 amount = Math.floor(Math.random() * (maxHard - minHard)) + 1 + minHard;
                 const embed = new EmbedBuilder()
                     .setColor(hardembedcolour)
-                    .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL()})
+                    .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
                     .setDescription(`You worked hard as a \`${jobs[result]}\` and earned ${amount} ${currency}`);
-                interaction.reply({ embeds: [embed], ephemeral: true})
+                interaction.reply({ embeds: [embed], ephemeral: true })
             }
             else {
                 amount = Math.floor(Math.random() * (maxNormal - minNormal)) + 1 + minNormal;
                 const embed = new EmbedBuilder()
                     .setColor(normalembedcolour)
-                    .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL()})
+                    .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
                     .setDescription(`You worked as a \`${jobs[result]}\` and earned ${amount} ${currency}`);
-                interaction.reply({ embeds: [embed], ephemeral: true})
+                interaction.reply({ embeds: [embed], ephemeral: true })
             }
 
             await db.add(`wallet.${interaction.user.id}`, amount);

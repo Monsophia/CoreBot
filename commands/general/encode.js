@@ -12,7 +12,7 @@ module.exports = {
 
         const encoded = Buffer.from(input, 'utf8').toString('base64');
 
-        interaction.reply({ content: `Your encoded message is \`${encoded}\``, ephemeral: true})
+        interaction.reply({ content: `Your encoded message is \`${encoded}\``, ephemeral: true })
 
     },
 };

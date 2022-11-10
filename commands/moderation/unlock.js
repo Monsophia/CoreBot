@@ -15,10 +15,10 @@ module.exports = {
             .setThumbnail(`${interaction.guild.iconURL() || ''}`)
             .setDescription(`This channel was manually unlocked!`)
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() })
 
         await interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, { SendMessages: null });
 
-        interaction.reply({embeds: [uannounceEmbed]});
+        interaction.reply({ embeds: [uannounceEmbed] });
     },
 };

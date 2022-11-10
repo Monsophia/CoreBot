@@ -15,15 +15,15 @@ module.exports = {
         const reason = interaction.options.getString('reason') || 'No reason specified'
         const target = interaction.options.getMember('user')
         const permCheck = checkPerms(interaction.member, target)
-        if(permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
+        if (permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
 
         let failed;
-        await interaction.guild.members.ban(target, { reason: `${reason} - ${interaction.user.tag}`})
+        await interaction.guild.members.ban(target, { reason: `${reason} - ${interaction.user.tag}` })
             .catch(err => {
                 failed = true;
                 interaction.reply({ content: 'Unable to ban that user', ephemeral: true })
             })
-        if(failed) return;
+        if (failed) return;
         const embed = new EmbedBuilder()
             .setColor(embedcolour)
             .setTitle('Banned Member')
@@ -32,14 +32,14 @@ module.exports = {
             .addFields(
                 { name: 'User\'s Discord', value: `${target.user.tag}`, inline: true },
                 { name: 'User\'s ID', value: `${target.user.id}`, inline: true },
-                { name: 'Banned By', value: interaction.user.tag, inline: true}
+                { name: 'Banned By', value: interaction.user.tag, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()});
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() });
 
         interaction.reply({ embeds: [embed] });
         const loggingChannel = await interaction.client.channels.fetch(sendLogs('ban')).catch(err => { })
-        if(loggingChannel) loggingChannel.send({embeds: [embed]})
+        if (loggingChannel) loggingChannel.send({ embeds: [embed] })
 
     },
 };

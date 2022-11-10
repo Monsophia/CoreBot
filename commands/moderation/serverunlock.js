@@ -1,6 +1,6 @@
 const { sendLogs } = require('../../utils')
 const { db } = require('../../index')
-const {  footer } = require('../../config.json');
+const { footer } = require('../../config.json');
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js')
 
 module.exports = {
@@ -12,10 +12,10 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         const all = await db.get(`settings_${interaction.guild.id}.locked`);
-        for(let i = 0; i < all.length; i++) {
+        for (let i = 0; i < all.length; i++) {
             const channelId = all[i]
-            const channel = await interaction.client.channels.fetch(channelId).catch(err => {})
-            if(channel) {
+            const channel = await interaction.client.channels.fetch(channelId).catch(err => { })
+            if (channel) {
                 await channel.permissionOverwrites.edit(interaction.channel.guild.roles.everyone, {
                     SendMessages: null,
                 });
@@ -28,9 +28,9 @@ module.exports = {
             .setThumbnail(`${interaction.guild.iconURL() || ''}`)
             .setDescription(`This server was unlocked`)
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() })
 
-        interaction.editReply({embeds: [embed]});
+        interaction.editReply({ embeds: [embed] });
 
         const logEmbed = new EmbedBuilder()
             .setColor('Green')
@@ -43,9 +43,9 @@ module.exports = {
                 { name: 'Moderator ID', value: `${interaction.user.id}`, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: footer, iconURL: interaction.guild.iconURL()})
+            .setFooter({ text: footer, iconURL: interaction.guild.iconURL() })
 
         const loggingChannel = await interaction.client.channels.fetch(sendLogs('lockdown')).catch(err => { })
-        if(loggingChannel) loggingChannel.send({embeds: [logEmbed]})
+        if (loggingChannel) loggingChannel.send({ embeds: [logEmbed] })
     }
 };

@@ -12,7 +12,7 @@ module.exports = {
         .addUserOption((option) => option.setName('user').setDescription('The user to check').setRequired(false)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-        if(!levelsEnabled) return interaction.reply({ content: 'Levelling system is disabled!', ephemeral: true });
+        if (!levelsEnabled) return interaction.reply({ content: 'Levelling system is disabled!', ephemeral: true });
         const user = interaction.options.getUser('user') || interaction.user;
         const level = await db.get(`level.${user.id}`) || 1;
         const xp = await db.get(`xp.${user.id}`) || 1;
@@ -35,7 +35,7 @@ module.exports = {
         image.build()
             .then(data => {
                 const attachment = new AttachmentBuilder(data, { name: "rank.png" });
-                interaction.editReply({files: [attachment], ephemeral: true})
+                interaction.editReply({ files: [attachment], ephemeral: true })
             });
     },
 };

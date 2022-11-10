@@ -3,7 +3,9 @@
         "donttouch": "",
         "messageChannelID": "",
         "categoryID": "",
-        "supportroles": [""],
+        "supportroles": [
+            ""
+        ],
         "message": "Welcome to your ticket {[USER]}",
         "closeMessage": "Your ticket has been closed",
         "embed": {

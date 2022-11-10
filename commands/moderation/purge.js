@@ -13,6 +13,6 @@ module.exports = {
 
         interaction.channel.bulkDelete(amount, true)
 
-        interaction.reply({ content: `Successfully purged ${amount-1} messages`, ephemeral: true })
+        interaction.reply({ content: `Successfully purged ${amount - 1} messages`, ephemeral: true })
     },
 };

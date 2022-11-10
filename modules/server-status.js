@@ -9,29 +9,29 @@ module.exports = async (client) => {
         config.servers.forEach(async server => {
             const channel = await client.channels.fetch(server.channelId).catch(err => { })
             const msgId = server.messageId || 'throwError'
-            if(!channel) return error('Server Status Module', 'Invalid Channel ID');
-            gamedig.query({ 
+            if (!channel) return error('Server Status Module', 'Invalid Channel ID');
+            gamedig.query({
                 type: server.game,
                 host: server.ip,
                 port: server.port,
                 maxAttempts: 3
-            }).then(async info => { 
+            }).then(async info => {
                 const players = info.players.map(player => `${player.name.substring(0, 20)} ${(player.raw && player.raw.ping) ? `(${player.raw.ping}ms)` : ''}`) // Map player names to also include ping, and only allow 20 characters per name
-                if(players.length > 40) players.length = 40  // Only allow 40 players to be shown to not exceed the embed limits
+                if (players.length > 40) players.length = 40  // Only allow 40 players to be shown to not exceed the embed limits
 
                 const embed = new EmbedBuilder()
                     .setTitle(info.name)
                     .addFields(
-                        { name: 'Direct Connect', value: `${server.displayConnectionInfo.replace('{ip}', server.ip).replace('{port}', server.port)}`, inline: true},
-                        { name: 'Players', value: `**${info.players.length}/${info.maxplayers}**`, inline: true},
-                        { name: 'Connected Players', value: `\`\`\`${players.length > 0 ? players.join('\n') : 'No Players Online'}\`\`\``, inline: false}
+                        { name: 'Direct Connect', value: `${server.displayConnectionInfo.replace('{ip}', server.ip).replace('{port}', server.port)}`, inline: true },
+                        { name: 'Players', value: `**${info.players.length}/${info.maxplayers}**`, inline: true },
+                        { name: 'Connected Players', value: `\`\`\`${players.length > 0 ? players.join('\n') : 'No Players Online'}\`\`\``, inline: false }
                     )
                 const message = channel.messages.cache.get(msgId) || await channel.messages.fetch(msgId).catch(err => { })
-                if(message) { // If message already exists, edit the existing one
+                if (message) { // If message already exists, edit the existing one
                     message.edit({ embeds: [embed] })
                 }
                 else { // If message doesn't exist, send a new one and update the config with it's ID
-                    const msg = await channel.send({ embeds: [embed]})
+                    const msg = await channel.send({ embeds: [embed] })
                     const fullConfig = JSON.parse(fs.readFileSync('./config.json'))
                     fullConfig.modules["server-status"].servers[config.servers.indexOf(server)].messageId = msg.id
                     fs.writeFileSync('./config.json', JSON.stringify(fullConfig, null, 4))
@@ -42,17 +42,17 @@ module.exports = async (client) => {
                     .setDescription(`Server is offline`)
 
                 const message = channel.messages.cache.get(msgId) || await channel.messages.fetch(msgId).catch(err => { })
-                if(message) { // If message already exists, edit the existing one
+                if (message) { // If message already exists, edit the existing one
                     message.edit({ embeds: [embed] })
                 }
                 else { // If message doesn't exist, send a new one and update the config with it's ID
-                    const msg = await channel.send({ embeds: [embed]})
+                    const msg = await channel.send({ embeds: [embed] })
                     const fullConfig = JSON.parse(fs.readFileSync('./config.json'))
                     fullConfig.modules["server-status"].servers[config.servers.indexOf(server)].messageId = msg.id
                     fs.writeFileSync('./config.json', JSON.stringify(fullConfig, null, 4))
                 }
             })
-            
+
         })
     }, 20000)
 }

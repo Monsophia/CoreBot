@@ -9,6 +9,6 @@ module.exports = {
         .addStringOption((option) => option.setName('message').setDescription('The message to say').setRequired(true)),
     execute(interaction) {
         interaction.channel.send(interaction.options.getString('message'))
-        interaction.reply({ content: 'Success!', ephemeral: true})
+        interaction.reply({ content: 'Success!', ephemeral: true })
     },
 };

@@ -9,11 +9,11 @@ module.exports = {
     async execute(interaction) {
         const userID = interaction.options.getUser('user').id
         const user = interaction.options.getMember('user')
-        if(!interaction.channel.topic && !interaction.channel.topic.split('|')[1] && interaction.channel.topic.split('|')[2] !== 'ticket') return interaction.reply({ content: 'This is not a ticket channel!', ephemeral: true })
+        if (!interaction.channel.topic && !interaction.channel.topic.split('|')[1] && interaction.channel.topic.split('|')[2] !== 'ticket') return interaction.reply({ content: 'This is not a ticket channel!', ephemeral: true })
         interaction.channel.permissionOverwrites.edit(user, {
             ViewChannel: false
         })
         interaction.reply({ content: `Successfully added <@${userID}> to this ticket!` })
-        
+
     },
 };

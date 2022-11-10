@@ -17,19 +17,19 @@ module.exports = {
         let num = 0;
 
         const member = await interaction.guild.members.fetch(target).catch(err => { })
-        if(member) {
+        if (member) {
             const permCheck = checkPerms(interaction.member, member)
-            if(permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
+            if (permCheck) return interaction.reply({ content: permCheck, ephemeral: true })
         }
 
         interaction.client.guilds.cache.forEach(server => {
-            server.bans.create(target, { reason: `${reason} - ${interaction.user.tag}`}).then(() => {
+            server.bans.create(target, { reason: `${reason} - ${interaction.user.tag}` }).then(() => {
                 num += 1;
             }).catch(err => { })
         })
 
-        
-        const loggingChannel = await interaction.client.channels.fetch(sendLogs('globalban')).catch(err => {})
+
+        const loggingChannel = await interaction.client.channels.fetch(sendLogs('globalban')).catch(err => { })
 
         const embed = new EmbedBuilder()
             .setColor(embedcolour)
@@ -37,11 +37,11 @@ module.exports = {
             .setDescription(`Successfully banned <@${target}> (\`${target}\`) from ${num} servers for \`${reason}\``)
             .addFields(
                 { name: 'User\'s ID', value: `${target}`, inline: true },
-                { name: 'Banned By', value: interaction.user.tag, inline: true}
+                { name: 'Banned By', value: interaction.user.tag, inline: true }
             )
             .setTimestamp()
-            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL()});
-        interaction.reply({embeds: [embed]})
-        if(loggingChannel) loggingChannel.send({embeds: [embed]}).catch(err => {})
+            .setFooter({ text: `${footer} - Made By Cryptonized`, iconURL: interaction.guild.iconURL() });
+        interaction.reply({ embeds: [embed] })
+        if (loggingChannel) loggingChannel.send({ embeds: [embed] }).catch(err => { })
     },
 };
